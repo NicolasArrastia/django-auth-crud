@@ -1,21 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Tasks Pending</h1>
+<main class="container">
+  <div class="col-md-6 offset-3">
+    <h1 class="text-center display-3 py-5">Tasks Pending</h1>
 
-<ul>
-  {% for task in tasks %}
-  <li>
-    <fieldset>
-      <legend>{{task.title}}</legend>
-      <i>{% if task.important %}⚠️{% endif %}{{task.description}}</i>
-      <p>{{task.date_completed|date:'M j Y:i'}}</p>
-      <a href="{% url 'task_detail' task.id %}">
-        Ver
+    <ul class="list-group">
+
+      {% for task in tasks %}
+      <a class="list-group-item" href="{% url 'task_detail' task.id %}">
+            <header class="d-flex justify-content-between">
+                {% if task.important %}
+                    <h3 class="fw-bold text-success">{{task.title}}</h3>
+                {% else %}
+                    <h3>{{task.title}}</h3>
+                {% endif %}
+                    </p>{{task.user.username}}</p>
+            </header>
+
+            <p>{{task.description}}</p>
+        
+        <!-- <fieldset>
+          <legend>{{task.title}}</legend>
+          <i>{% if task.important %}⚠️{% endif %}{{task.description}}</i>
+          <p>{{task.date_completed|date:'M j Y:i'}}</p>
+          <a href="{% url 'task_detail' task.id %}">
+            Ver
+          </a>
+        </fieldset> -->
       </a>
-      </fieldset>
-  </li>
-  {% endfor %}
-</ul>
+      {% endfor %}
 
+    </ul>
+
+  </div>
+</main>
 {% endblock %}
